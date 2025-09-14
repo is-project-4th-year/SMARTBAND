@@ -1,3 +1,4 @@
+# ===== Android / Gradle =====
 *.iml
 .gradle
 /local.properties
@@ -13,3 +14,23 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+*.sqlite3
+
+# ===== Virtual Environment =====
+.venv/
+venv/
+ENV/
+env/
