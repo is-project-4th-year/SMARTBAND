@@ -1,0 +1,190 @@
+[
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_outline_blob1.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\outline_blob1.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\font_playfairdisplay_bold.ttf.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\font\\playfairdisplay_bold.ttf"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_grey_blob1.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\grey_blob1.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_blob.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\blob.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\layout_fragment_second.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\layout\\fragment_second.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\font_roboto_regular.ttf.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\font\\roboto_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\font_roboto_medium.ttf.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\font\\roboto_medium.ttf"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_img.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\img.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_background.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\background.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_autism_cu.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\autism_cu.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_blob3.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\blob3.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_yellow.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\yellow.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_folder.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\folder.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_bulb.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\bulb.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\font_helmet_regular.ttf.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\font\\helmet_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\layout_fragment_first.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\layout\\fragment_first.xml"
+    },
+    {
+        "merged": "com.example.smartband.app-debug-67:/drawable_user.png.flat",
+        "source": "com.example.smartband.app-main-69:/drawable/user.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_cheer.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\cheer.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_grey_blob2.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\grey_blob2.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_blobb2.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\blobb2.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\navigation_nav_graph.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\navigation\\nav_graph.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_default_parent_profile.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\default_parent_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_meshs.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\meshs.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_outline_blob2.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\outline_blob2.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_blobb.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\blobb.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\font_playfairdispla_black.ttf.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\font\\playfairdispla_black.ttf"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_support.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\support.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_cartographer.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\cartographer.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_sulky.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\sulky.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_boy.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\boy.png"
+    },
+    {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-debug-67:\\drawable_depression.png.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\8.7\\com.example.smartband.app-main-69:\\drawable\\depression.png"
+    }
+]
