@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.smartband.app-mergeDebugResources-66:/layout/fragment_first.xml",
+        "source": "com.example.smartband.app-main-69:/layout/fragment_first.xml"
+    },
+    {
+        "merged": "com.example.smartband.app-mergeDebugResources-66:/layout/fragment_second.xml",
+        "source": "com.example.smartband.app-main-69:/layout/fragment_second.xml"
+    }
+]
