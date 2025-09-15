@@ -9,6 +9,10 @@ import com.example.smartband.screens.auth.SignInScreen
 import com.example.smartband.screens.auth.SignUpScreen
 import com.example.smartband.screens.auth.ChildInfo
 import com.example.smartband.screens.LandingPage
+import com.example.smartband.screens.navbar.Schedule
+import com.example.smartband.screens.navbar.Analytics
+import com.example.smartband.screens.navbar.Profile
+
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {

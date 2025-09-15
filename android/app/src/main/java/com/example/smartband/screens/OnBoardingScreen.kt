@@ -1,8 +1,5 @@
 package com.example.smartband.screens
 
-import android.graphics.LinearGradient
-import android.graphics.Shader
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,9 +19,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,7 +33,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +40,6 @@ import androidx.compose.ui.unit.sp
 import com.example.smartband.R
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.em
 import androidx.navigation.NavController
 import com.example.smartband.navigation.Screen
@@ -57,9 +49,9 @@ import com.example.smartband.navigation.Screen
 @Composable
 fun OnBoardingScreen(navController: NavController) {
     val pages = listOf(
-        Triple(R.drawable.onboard1, "Welcome", "Discover amazing features."),
-        Triple(R.drawable.onboard2, "Stay Connected", "Keep in touch with friends."),
-        Triple(R.drawable.onboard2, "Get Started", "Let’s begin your journey!")
+        Triple(R.drawable.onboard1, " ", "Discover amazing features."),
+        Triple(R.drawable.onboard2, " ", "Keep in touch with friends."),
+        Triple(R.drawable.onboard2, " ", "Let’s begin your journey!")
     )
     val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
@@ -120,7 +112,6 @@ fun OnBoardingScreen(navController: NavController) {
                             contentAlignment = Alignment.BottomCenter
                         )
                         {
-                         //   Spacer(modifier = Modifier.padding(top= 20.dp))
 
                             Image(
                                 painter = painterResource(id = R.drawable.cheer), // replace with your image
@@ -286,10 +277,12 @@ fun OnBoardingScreen(navController: NavController) {
                                 fontSize = 19.sp,
                                 fontFamily = bodyFont
                             )
-                        }}
+                        }
+                        }
                 }
             }
-            }}
+            }
+        }
 
         // Simple dots indicator
         Row(
