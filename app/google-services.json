@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "144898331558",
+    "project_id": "smartband-41cc6",
+    "storage_bucket": "smartband-41cc6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144898331558:android:d2e1f5e74ab476fe2db567",
+        "android_client_info": {
+          "package_name": "com.example.smartband"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144898331558-a02chft2thh4b25pe517v7jdrm4cr9k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApylkQXS9gWMHSJZikePouK2DwsuMwMnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144898331558-a02chft2thh4b25pe517v7jdrm4cr9k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144898331558:android:fd74a23b4fc67adb2db567",
+        "android_client_info": {
+          "package_name": "com.example.smartband.screens.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144898331558-a02chft2thh4b25pe517v7jdrm4cr9k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApylkQXS9gWMHSJZikePouK2DwsuMwMnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144898331558-a02chft2thh4b25pe517v7jdrm4cr9k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
