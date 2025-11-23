@@ -1,14 +1,9 @@
 package com.example.smartband.screens
 
 import android.Manifest
-import android.R.attr.title
-import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import com.example.smartband.R
@@ -30,17 +25,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.outlined.Help
 import androidx.compose.material.icons.filled.SentimentSatisfied
 import androidx.compose.material3.Card
@@ -57,37 +46,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.times
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.smartband.navigation.Screen
 import com.example.smartband.screens.auth.headlineFont
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Mood
 import androidx.compose.material.icons.filled.DirectionsWalk
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Hotel
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Analytics
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.rememberDrawerState
@@ -96,7 +72,6 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.DrawerValue
@@ -104,33 +79,34 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import com.example.smartband.screens.navbar.bodyFont
 import com.example.smartband.screens.navbar.headlineFont2
 import kotlinx.coroutines.launch
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.smartband.influx.InfluxViewModel
-import androidx.compose.runtime.collectAsState
 import com.example.smartband.influx.SensorReading
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.icons.filled.DeviceThermostat
-import androidx.compose.material.icons.outlined.Factory
+import androidx.compose.material.icons.filled.SentimentNeutral
+import androidx.compose.material.icons.filled.SentimentSatisfiedAlt
+import androidx.compose.material.icons.filled.SentimentVeryDissatisfied
+import androidx.compose.material.icons.filled.SentimentVerySatisfied
+import androidx.compose.material.icons.outlined.BarChart
+import androidx.compose.material.icons.outlined.Draw
 import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.outlined.StackedBarChart
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
-import com.example.smartband.screens.navbar.InfluxDataScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.smartband.screens.navbar.settings.NotificationHelper
+import java.time.LocalDate
 import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -154,15 +130,20 @@ fun LandingPage(navController : NavController, viewModel: InfluxViewModel) {
         db = db
 
     ) { innerPadding ->
+        Box(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .height(120.dp)
                 .background(colorResource(R.color.yellow))
-                .padding(innerPadding)
-        ) {
+        )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .background(
+                        colorResource(R.color.yellow)
+                    )
             ) {
                 Column(
                     modifier = Modifier
@@ -214,8 +195,6 @@ fun LandingPage(navController : NavController, viewModel: InfluxViewModel) {
                                 topEnd = 30.dp
                             )
                         )
-                        .offset(y = 10.dp)
-                        .verticalScroll(scrollState)
                         .padding(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -225,83 +204,102 @@ fun LandingPage(navController : NavController, viewModel: InfluxViewModel) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Text(
+                            text = "Today's Mood Board",
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            letterSpacing = 0.03.em,
+                            fontFamily = com.example.smartband.screens.bodyFont,
+                             modifier = Modifier.offset(x = 12.dp)
+                        )
+                        Spacer(modifier = Modifier.width(17.dp))
+                        Icon(
+                            imageVector = Icons.Outlined.Analytics,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(19.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+
                     Column(
                         modifier = Modifier
                             .fillMaxWidth(0.94f)
-                            .height(170.dp)
-                            .background(colorResource(R.color.purple), shape = RoundedCornerShape(16.dp))
+                            .height(200.dp)
+                           .background(colorResource(R.color.purple), shape = RoundedCornerShape(16.dp))
                             .clip(RoundedCornerShape(16.dp))
-                            .padding(10.dp)
+                            .padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceEvenly
 
                     )
                     {
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "Weekly Report",
-                                    fontSize = 16.sp,
-                                    color = Color.Black,
-                                    letterSpacing = 0.02.em,
-                                    fontFamily = headlineFont2,
-                                    modifier = Modifier.offset(x = 12.dp)
-                                )
-                                Spacer(modifier = Modifier.width(17.dp))
-                                Icon(
-                                    imageVector = Icons.Outlined.Analytics,
-                                    contentDescription = null,
-                                    tint = Color.Black,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            }
-
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-
-                            Spacer(modifier = Modifier.width(6.dp))
-
-//                            DonutChartWithLegend(
-//                                values = listOf(40f, 30f, 30f),
-//                                colors = listOf(
-//                                    Color(0xFFFFB57B), // Purple
-//                                    Color(0xFF8BC34A), // Yellow
-//                                    Color(0xFF03A9F4)  // Green
-//                                ),
-//                                labels = listOf("Calm", "Stressed", "Neutral")
-//                            )
-                            EmotionDonutChart(viewModel = viewModel)
-                        }
+                        MoodList(viewModel)
+//                        Divider(
+//                                modifier = Modifier
+//                                    .width(230.dp), thickness = 0.3.dp, color = Color.Gray
+//                                )
+//                        Spacer(modifier = Modifier.height(3.dp))
+//
+//                        MoodRow(
+//                            emoji = Icons.Default.SentimentSatisfiedAlt,
+//                            mood = "Calm",
+//                            percentage = 21
+//                        )
+//                        Divider(
+//                            modifier = Modifier
+//                                .width(230.dp), thickness = 0.3.dp, color = Color.Gray
+//                        )
+//                        Spacer(modifier = Modifier.height(3.dp))
+//
+//                        MoodRow(
+//                            emoji = Icons.Default.SentimentSatisfied,
+//                            mood = "Amused",
+//                            percentage = 19
+//                        )
 
                     }
 
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(0.94f)
-                            .height(130.dp)
-                            .background(colorResource(R.color.white), shape = RoundedCornerShape(16.dp))
-                            .clip(RoundedCornerShape(16.dp))
-                            .padding(10.dp)
-
-                    )
-                    {
-                        Spacer(modifier = Modifier.height(7.dp))
-
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start
+                    ) {
                         Text(
                             text = "Parenting Tip",
                             fontSize = 16.sp,
                             color = Color.Black,
-                            fontFamily = headlineFont2,
-                            modifier = Modifier.offset(x = 13.dp)
+                            letterSpacing = 0.03.em,
+                            fontFamily = com.example.smartband.screens.bodyFont,
+                            modifier = Modifier.offset(x = 12.dp)
                         )
+                        Spacer(modifier = Modifier.width(17.dp))
+                        Icon(
+                            imageVector = Icons.Outlined.Draw,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(19.dp)
+                        )
+                    }
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth(0.94f)
+                            .height(100.dp)
+                            .background(colorResource(R.color.white), shape = RoundedCornerShape(16.dp))
+                            .clip(RoundedCornerShape(16.dp))
+                            .padding(10.dp)
+                    )
+                    {
+                        Spacer(modifier = Modifier.height(7.dp))
 
                         //        // Longer parent tips
                         val tips = listOf(
@@ -317,7 +315,7 @@ fun LandingPage(navController : NavController, viewModel: InfluxViewModel) {
                         )
                         // Generate a "daily index" based on system day
                         val dayOfYear = remember {
-                            java.time.LocalDate.now().dayOfYear
+                            LocalDate.now().dayOfYear
                         }
 
                         // Shuffle tips in a stable way (seeded by dayOfYear)
@@ -339,9 +337,121 @@ fun LandingPage(navController : NavController, viewModel: InfluxViewModel) {
                         )
 
                     }
+                    Spacer(modifier = Modifier.height(50.dp))
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MoodList(viewModel: InfluxViewModel) {
+    // Collect the percentage map from the ViewModel
+    val emotionPercent by viewModel.emotionDataPercent.collectAsState()
+
+    val allMoods = listOf("Calm", "Stressed","Amused")
+    // Map moods to icons
+    val moodIcons = mapOf(
+        "Calm" to Icons.Default.SentimentSatisfied,
+        "Stressed" to Icons.Default.SentimentVeryDissatisfied,
+        "Amused" to Icons.Default.SentimentVerySatisfied
+    )
+
+    Column {
+        allMoods.forEach { mood ->
+            val percent = emotionPercent[mood] ?: 0
+
+            MoodRow(
+                emoji = moodIcons[mood] ?: Icons.Default.SentimentNeutral,
+                mood = mood,
+                percentage = percent.toInt()  // Int required by MoodRow
+            )
+        }
+    }
+}
+
+@Composable
+fun MoodRow(
+    emoji: ImageVector,
+    mood: String,
+    percentage: Int
+) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp, vertical = 7.dp),
+
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            // Left: icon + emotion name
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = emoji,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(31.dp),
+                    tint = Color.Black  // adjust size as needed
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+
+                Text(
+                    text = mood,
+                    fontSize = 15.sp,
+                    color = Color.Black,
+                    fontFamily = bodyFont
+                )
+            }
+
+            DonutProgress(
+                progress = percentage / 100f  // e.g. 0.78 for 78%
+            )
+        }
+}
+
+@Composable
+fun DonutProgress(
+    progress: Float,   // 0f – 1f
+    size: Dp = 36.dp,
+    stroke: Dp = 2.dp,
+    color: Color = Color(0xFF1A1A1A),
+    backgroundColor: Color = Color.LightGray.copy(alpha = 0.3f)
+) {
+    Box(
+        modifier = Modifier.size(size),
+        contentAlignment = Alignment.Center
+    ) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+
+            // Background ring
+            drawArc(
+                color = backgroundColor,
+                startAngle = -90f,
+                sweepAngle = 360f,
+                useCenter = false,
+                style = Stroke(width = stroke.toPx(), cap = StrokeCap.Round)
+            )
+
+            // Progress arc
+            drawArc(
+                color = color,
+                startAngle = -90f,
+                sweepAngle = progress * 360f,
+                useCenter = false,
+                style = Stroke(width = stroke.toPx(), cap = StrokeCap.Round)
+            )
+        }
+
+        // Percentage text inside
+        Text(
+            text = "${(progress * 100).toInt()}%",
+            fontSize = 12.sp,
+            color = Color.Black,
+            fontFamily = com.example.smartband.screens.bodyFont
+        )
     }
 }
 
@@ -385,7 +495,7 @@ fun LatestMotionDisplay(sensorData: List<SensorReading>) {
 
 
 @Composable
-fun EmotionDonutChart(viewModel: InfluxViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun EmotionDonutChart(viewModel: InfluxViewModel = viewModel()) {
     val emotionMap by viewModel.emotionData.collectAsState()
 
     if (emotionMap.isNotEmpty()) {
@@ -404,11 +514,15 @@ fun EmotionDonutChart(viewModel: InfluxViewModel = androidx.lifecycle.viewmodel.
             labels = labels
         )
     } else {
-        Text(
-            text = "Loading emotion data...",
-            color = Color.Gray,
-            modifier = Modifier.padding(16.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "Loading emotion data...",
+                color = Color.Gray,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
 
@@ -418,13 +532,13 @@ fun DonutChartWithLegend(
     values: List<Float>,
     colors: List<Color>,
     labels: List<String>,
-    size: Dp = 80.dp,
+    size: Dp = 70.dp,
     strokeWidth: Dp = 18.dp
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -626,20 +740,6 @@ fun FilterChipsMenu(
 
 }
 
-@Composable
-fun MenuSelection(onMenuSelected: (String?) -> Unit){
-    var selectedMenu by remember { mutableStateOf<String?>(null) }
-
-    FilterChipsMenu(
-        options = listOf("Emotions", "Location", "Other"),
-        selectedOption = selectedMenu,
-        onSelectionChanged = {
-            selectedMenu = it
-            onMenuSelected(it)
-        },
-
-        )
-}
 
 @Composable
 fun ChildNameView(uid: String, db: FirebaseFirestore) {
@@ -692,9 +792,6 @@ fun DetailedDrawerExample(
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
-        modifier = Modifier
-            .background(Color(0xFFECDFF5)),
-
         drawerContent = {
             ModalDrawerSheet(
                 modifier = Modifier
@@ -776,16 +873,6 @@ fun DetailedDrawerExample(
                             unselectedContainerColor = Color.Transparent)
                     )
 
-//                    NavigationDrawerItem(
-//                        label = { Text("Settings",fontFamily = bodyFont, fontSize = 15.sp)},
-//                        selected = false,
-//                        icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
-//                        badge = { Text("20") }, // Placeholder
-//                        onClick = { /* Handle click */ },
-//                        colors = NavigationDrawerItemDefaults.colors(
-//                            selectedContainerColor = Color.Transparent,
-//                            unselectedContainerColor = Color.Transparent)
-//                    )
 
                     NavigationDrawerItem(
                         label = { Text("Help and feedback",fontFamily = bodyFont, fontSize = 15.sp)},
@@ -834,7 +921,9 @@ fun DetailedDrawerExample(
                 }
             }
         },
-        drawerState = drawerState
+        drawerState = drawerState,
+        modifier = Modifier.background(Color.White)
+
     ) {
         Scaffold(
             topBar = {
@@ -859,7 +948,7 @@ fun DetailedDrawerExample(
                 )
             },
             modifier = Modifier.fillMaxSize(),
-            containerColor = colorResource(R.color.yellow),
+            containerColor = Color.Transparent
         ) { innerPadding ->
             content(innerPadding)
         }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class InfluxLocationModel : ViewModel(){
-    private val flaskUrl = "https://89c24cf9e43f.ngrok-free.app"
+    private val flaskUrl = "https://fissirostral-rawish-zahra.ngrok-free.dev"
 
     private val _locationData = mutableStateOf<List<Pair<Float, Float>>>(emptyList())
     val locationData: State<List<Pair<Float, Float>>> = _locationData

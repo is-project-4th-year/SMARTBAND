@@ -14,9 +14,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Scanner
+
+import android.content.Context
+import android.graphics.Paint
+import android.graphics.pdf.PdfDocument
+import java.io.File
+
 
 data class SensorReading(
     val time: String,
@@ -33,7 +40,7 @@ data class SensorReading(
 class InfluxViewModel : ViewModel() {
 
     // Replace with your Flask server IP and endpoint
-    private val flaskUrl = "https://89c24cf9e43f.ngrok-free.app"
+    private val flaskUrl = "https://fissirostral-rawish-zahra.ngrok-free.dev"
 
     private val _sensorData = MutableStateFlow<List<SensorReading>>(emptyList())
     val sensorData: StateFlow<List<SensorReading>> = _sensorData
@@ -41,6 +48,11 @@ class InfluxViewModel : ViewModel() {
 
     private val _emotionData = MutableStateFlow<Map<String, Int>>(emptyMap())
     val emotionData: StateFlow<Map<String, Int>> = _emotionData
+
+    private val _emotionDataPercent = MutableStateFlow<Map<String, Float>>(emptyMap())
+
+    val emotionDataPercent: StateFlow<Map<String, Float>> = _emotionDataPercent
+
 
     private val _temperatureData = mutableStateOf<List<Pair<String, Float>>>(emptyList())
     val temperatureData: State<List<Pair<String, Float>>> = _temperatureData
@@ -162,7 +174,9 @@ class InfluxViewModel : ViewModel() {
 
                                 withContext(Dispatchers.Main) {
                                     _emotionData.value = map
-                                    print("Map is $map")
+                                    val percentageMap = toPercentageMap(map)
+                                    _emotionDataPercent.value = percentageMap
+                                    print("Map is $map and $percentageMap")
                                 }
                             } else {
                                 Log.e("⚠️ Error", "HTTP error: $responseCode")
@@ -187,6 +201,78 @@ class InfluxViewModel : ViewModel() {
                 e.printStackTrace()
             }
         }
+    }
+
+
+    private fun toPercentageMap(freq: Map<String, Int>): Map<String, Float> {
+        val total = freq.values.sum()
+        if (total == 0) return emptyMap()
+
+        return freq.mapValues { (_, count) ->
+            (count.toFloat() / total) * 100f
+        }
+    }
+
+
+    fun exportPDF(
+        context: Context,
+        readings : List<SensorReading>
+    ):File{
+        val pdfDocument = PdfDocument()
+        val paint = Paint()
+
+        val pageInfo = PdfDocument.PageInfo.Builder(595,842,1).create()
+
+        val page = pdfDocument.startPage(pageInfo)
+
+        val canvas = page.canvas
+        var yPos = 60
+
+        paint.textSize = 18f
+        paint.isFakeBoldText = true
+
+        canvas.drawText("Sensor Report", 50f,yPos.toFloat(),paint)
+
+        yPos += 40
+
+        paint.textSize = 14f
+
+        paint.isFakeBoldText = false
+
+        readings.forEach{
+            reading ->
+            if (yPos > 800) {
+                pdfDocument.finishPage(page)
+                val newPage = pdfDocument.startPage(pageInfo)
+                yPos = 60
+            }
+
+            val text = """
+            Time: ${reading.time}
+            Heart Rate: ${reading.heartRate ?: "N/A"}
+            Temp: ${reading.temp ?: "N/A"}
+            Acc: X=${reading.accX ?: "-"} Y=${reading.accY ?: "-"} Z=${reading.accZ ?: "-"}
+            Emotion: ${reading.emotion}
+            Magnitude: ${reading.magnitude ?: "N/A"}
+            Status: ${reading.status}
+        """.trimIndent()
+
+            text.split("\n").forEach { line ->
+                canvas.drawText(line, 50f, yPos.toFloat(), paint)
+                yPos += 20
+            }
+
+            yPos += 10
+        }
+        pdfDocument.finishPage(page)
+
+        val fileName = "sensor_report.pdf"
+        val file = File(context.getExternalFilesDir(null), fileName)
+        pdfDocument.writeTo(FileOutputStream(file))
+        pdfDocument.close()
+
+        return file
+
     }
 
 }
