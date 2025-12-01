@@ -13,6 +13,7 @@ package com.example.smartband.navigation
      data object EditProfile : Screen("screens/navbar/settings/EditProfile")
      data object Reports : Screen("screens/navbar/Reports")
      data object Help : Screen("screens/navbar/settings/Help")
+     data object Notification : Screen("screens/navbar/settings/Notifications")
 
      data object Pattern : Screen("screens/Pattern")
 

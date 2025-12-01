@@ -23,7 +23,7 @@ import java.util.Scanner
 
 class ReportViewModel : ViewModel() {
 
-    private val flaskUrl = "https://89c24cf9e43f.ngrok-free.app"
+    private val flaskUrl = "https://fissirostral-rawish-zahra.ngrok-free.dev"
     private val _temperatureData = mutableStateOf<List<Float>>(emptyList())
     val temperatureData: State<List<Float>> = _temperatureData
 

@@ -29,6 +29,7 @@ import com.example.smartband.screens.navbar.Map
 import com.example.smartband.screens.navbar.settings.ChangeAvatar
 import com.example.smartband.screens.navbar.settings.EditProfile
 import com.example.smartband.screens.navbar.settings.Help
+import com.example.smartband.screens.navbar.settings.Notifications
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -97,7 +98,7 @@ fun SetupNavGraph(navController: NavHostController) {
             Profile(navController = navController, viewModel = avatarViewModel)
         }
         composable(Screen.Reports.route) {
-            Reports(navController = navController, viewModel = report)
+            Reports(navController = navController, viewModel = report, viewModels = influx)
         }
         composable(
             Screen.VerifyOtp.route,
@@ -127,7 +128,9 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(Screen.Help.route) {
             Help(navController = navController)
         }
-
+        composable(Screen.Notification.route) {
+            Notifications(navController = navController)
+        }
         composable(Screen.ChangeAvatar.route) {
             ChangeAvatar(navController = navController, viewModel = avatarViewModel )
         }

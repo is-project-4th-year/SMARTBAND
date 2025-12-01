@@ -122,7 +122,7 @@ fun SettingsPage(navController: NavController, viewModel: AvatarViewModel) {
 
     val settingsItems = listOf(
         Triple("Edit Profile", Icons.Default.Person, Screen.EditProfile),
-        Triple("Notifications", Icons.Default.Notifications, "Landing"),
+        Triple("Notifications", Icons.Default.Notifications, Screen.Notification),
         Triple("Change Avatar", Icons.Default.Person3, Screen.ChangeAvatar),
         Triple("Reset Password", Icons.Default.LockOpen, "Help"),
     )

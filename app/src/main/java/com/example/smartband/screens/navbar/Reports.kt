@@ -1,5 +1,8 @@
 package com.example.smartband.screens.navbar
 
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,23 +25,29 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.smartband.influx.InfluxViewModel
+import com.github.mikephil.charting.data.BarEntry
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Analytics
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.FileProvider
 import com.example.smartband.R
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
@@ -47,12 +56,39 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.example.smartband.influx.ReportViewModel
 import com.example.smartband.navigation.Screen
+import com.example.smartband.screens.EmotionDonutChart
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.io.File
+import android.content.ContentValues
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.annotation.RequiresApi
+import java.io.OutputStream
+import com.itextpdf.text.Document
+import com.itextpdf.text.Paragraph
+import com.itextpdf.text.pdf.PdfWriter
+import com.example.smartband.influx.SensorReading
+import com.example.smartband.screens.DonutChartWithLegend
+import com.itextpdf.text.pdf.PdfPTable
+import java.io.FileOutputStream
+
+
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun Reports( navController: NavController, viewModel: ReportViewModel){
+fun Reports( navController: NavController, viewModel: ReportViewModel, viewModels: InfluxViewModel){
+
+    val scrollState = rememberScrollState()
+
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp)
+        modifier = Modifier.fillMaxSize().background(Color.White).padding(10.dp).verticalScroll(scrollState)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(
@@ -69,9 +105,7 @@ fun Reports( navController: NavController, viewModel: ReportViewModel){
                     modifier = Modifier.size(32.dp)
                 )
             }
-
         }
-
 
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -89,7 +123,7 @@ fun Reports( navController: NavController, viewModel: ReportViewModel){
         ){
             Text(
                 text = "Your weekly summary is here — explore the charts and stats that capture your progress.",
-                fontSize = 14.sp,
+                fontSize = 15.sp,
                 fontFamily = bodyFont,
                 letterSpacing = 0.02.em,
                 lineHeight = 22.sp,
@@ -98,26 +132,61 @@ fun Reports( navController: NavController, viewModel: ReportViewModel){
             )
         }
 
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(0.9f).offset(x = 10.dp)
+        ){
+
+           ExportReportButton(viewModel = viewModels)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+            Column(
+                modifier = Modifier.padding(10.dp)
+                    .background(colorResource(R.color.gray), shape = RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(16.dp))
+            ) {
+
+                Text(
+                    text = "Week Summary",
+                    fontSize = 18.sp,
+                    fontFamily = bodyFont,
+                    modifier = Modifier.padding(13.dp).offset(x= (5).dp)
+                )
 
 
-        Column(
-            modifier = Modifier.padding(10.dp)
-                .background(colorResource(R.color.gray), shape = RoundedCornerShape(16.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    EmotionDonutChart(viewModel = viewModels)
+                }
+
+            }
+
+        Column (
+            modifier = Modifier
+                .padding(10.dp)
+                .background(colorResource(R.color.purple), shape = RoundedCornerShape(16.dp))
                 .clip(RoundedCornerShape(16.dp))
         ) {
             Text(
                 text = "Heart Rate Graph",
                 fontSize = 18.sp,
                 fontFamily = bodyFont,
-                modifier = Modifier.padding(13.dp).offset(x= (5).dp)
+                modifier = Modifier.padding(13.dp).offset(x = (5).dp)
             )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
-            ){
+            ) {
 
                 HeartRateLineChart(viewModel)
             }
@@ -127,7 +196,7 @@ fun Reports( navController: NavController, viewModel: ReportViewModel){
         Column (
             modifier = Modifier
                 .padding(10.dp)
-                .background(colorResource(R.color.purple), shape = RoundedCornerShape(16.dp))
+                .background(colorResource(R.color.white), shape = RoundedCornerShape(16.dp))
                 .clip(RoundedCornerShape(16.dp))
         ){
             Text(
@@ -146,8 +215,125 @@ fun Reports( navController: NavController, viewModel: ReportViewModel){
             }
         }
 
+        Column (
+            modifier = Modifier
+                .padding(10.dp)
+                .background(colorResource(R.color.purple), shape = RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
+        ){
+            Text(
+                text = "Motion Graph",
+                fontSize = 18.sp,
+                fontFamily = bodyFont,
+                modifier = Modifier.padding(13.dp).offset(x= (5).dp)
+            )
+
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ){
+                val todayActivity = listOf(5f, 3f, 4f) // Motion, Resting, Light, High
+                ActivityBarChart(activityData = todayActivity)
+
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        HorizontalDivider(modifier = Modifier.fillMaxWidth(0.6f).padding(horizontal = 14.dp))
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                text = "Monthly Reports",
+                fontSize = 20.sp,
+                fontFamily = headlineFont2,
+                modifier = Modifier.padding(10.dp).offset(x= (5).dp)
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(0.9f),
+        ){
+            Text(
+                text = "Your monthly summary is here — explore the charts and stats that capture your progress.",
+                fontSize = 14.sp,
+                fontFamily = bodyFont,
+                letterSpacing = 0.02.em,
+                lineHeight = 22.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(4.dp).offset(x= (12).dp)
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Column(
+            modifier = Modifier.padding(10.dp)
+                .background(colorResource(R.color.gray), shape = RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
+        ) {
+
+            Text(
+                text = "Month Emotion Summary",
+                fontSize = 18.sp,
+                fontFamily = bodyFont,
+                modifier = Modifier.padding(13.dp).offset(x= (5).dp)
+            )
+
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Spacer(modifier = Modifier.width(6.dp))
+
+                MonthlyEmotionDonut()
+            }
+
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(0.9f).offset(x = 10.dp)
+        ){
+
+            ExportReportButton(viewModel = viewModels)
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+
     }
 
+
+}
+
+@Composable
+fun MonthlyEmotionDonut() {
+    // Fixed values and labels
+    val labels = listOf("Stressed", "Calm", "Amused")
+    val values = listOf(56f, 40f, 9f) // percentages or counts
+
+    val colors = listOf(
+        Color(0xFF8E44AD), // Purple
+        Color(0xFF3498DB), // Blue
+        Color(0xFFE67E22), // Orange
+    )
+
+    DonutChartWithLegend(
+        values = values,
+        colors = colors.take(labels.size),
+        labels = labels
+    )
 }
 
 
@@ -157,7 +343,12 @@ fun HeartRateLineChart(viewModel: ReportViewModel) {
     val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
     if (tempData.isEmpty()){
-        Text("Loading temperature data..", color = Color.Gray)
+        Row(
+            modifier = Modifier.height(50.dp)
+        ){
+            Text("Loading heart rate data..", color = Color.Gray)
+        }
+
     }
     else{
         val entries = tempData.mapIndexed { index, temp ->
@@ -202,21 +393,6 @@ fun HeartRateLineChart(viewModel: ReportViewModel) {
                     legend.isEnabled = false
                     animateX(1000)
 
-                    // Customize X Axis to show days
-//                    xAxis.apply {
-//                        position = XAxis.XAxisPosition.BOTTOM
-//                        valueFormatter = IndexAxisValueFormatter(daysOfWeek)
-//                        granularity = 1f
-//                        setLabelCount(daysOfWeek.size, true)
-//                        textSize = 12f
-//                        axisMinimum = 0f
-//                        axisMaximum = (daysOfWeek.size - 1).toFloat()
-//                    }
-//                    axisLeft.apply {
-//                        axisMinimum = 35f
-//                        axisMaximum = 38f
-//                        textSize = 11f
-//                    }
 
                 }
             },
@@ -251,7 +427,11 @@ fun TempLineChart(viewModel: ReportViewModel) {
     val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
     if (tempData.isEmpty()){
-        Text("Loading temperature data..", color = Color.Gray)
+        Row(
+            modifier = Modifier.height(50.dp)
+        ){
+            Text("Loading temperature data..", color = Color.Gray)
+        }
     }
     else{
         val entries = tempData.mapIndexed { index, temp ->
@@ -262,15 +442,16 @@ fun TempLineChart(viewModel: ReportViewModel) {
             color = Color(0xFF9C27B0).toArgb()  // Purple line
             lineWidth = 2f
             setDrawCircles(false)
-            setDrawValues(false)
+          //  setDrawValues(false)
         }
         val lineData = LineData(lineDataSet)
 
+        val formatter = IntValueFormatter()
         AndroidView(
             modifier = Modifier
                 .fillMaxWidth(0.95f)
-                .padding(15.dp)
-                .height(200.dp),
+                .height(200.dp)
+                .padding(15.dp),
             factory = { context ->
                 LineChart(context).apply {
                     val red = androidx.compose.ui.graphics.Color(0xFF8E24AA).toArgb()   // Deep red
@@ -281,11 +462,16 @@ fun TempLineChart(viewModel: ReportViewModel) {
                         setCircleColor(redLight)
                         lineWidth = 3f
                         circleRadius = 4f
-                        valueTextSize = 10f
+                       // valueTextSize = 10f
                         mode = LineDataSet.Mode.CUBIC_BEZIER
                         setDrawFilled(true)
                         fillColor = redLight
                         fillAlpha = 80
+                        valueFormatter = object : ValueFormatter() {
+                            override fun getPointLabel(entry: Entry?): String {
+                                return entry?.y?.toInt().toString() // show int values
+                            }
+                        }
                     }
 
                     data = LineData(dataSet)
@@ -293,6 +479,14 @@ fun TempLineChart(viewModel: ReportViewModel) {
                     axisRight.isEnabled = false
                     axisLeft.textColor = android.graphics.Color.BLACK
                     xAxis.textColor = android.graphics.Color.BLACK
+
+                    // X-axis integer labels
+                    xAxis.apply {
+                        textColor = android.graphics.Color.BLACK
+                        setLabelCount(7, true) // force 7 labels evenly
+                        valueFormatter = formatter
+                    }
+
                     legend.isEnabled = false
                     animateX(1000)
 
@@ -315,6 +509,7 @@ fun TempLineChart(viewModel: ReportViewModel) {
                 }
 
                 chart.data = LineData(dataSet)
+
                 chart.invalidate()
             },
 
@@ -323,40 +518,151 @@ fun TempLineChart(viewModel: ReportViewModel) {
 }
 
 
+@Composable
+fun ActivityBarChart(
+    activityData: List<Float> // pass in activity values for Motion, Resting, Light, High
+) {
+    val categories = listOf("Resting", "Light", "High") // X-axis labels
+
+    if (activityData.isEmpty()) {
+        Row(
+            modifier = Modifier.height(50.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Loading activity data...", color = Color.Gray)
+        }
+    } else {
+        val entries = activityData.mapIndexed { index, value ->
+            BarEntry(index.toFloat(), value)
+        }
+
+        val barDataSet = BarDataSet(entries, "Activity Levels").apply {
+            colors = listOf(
+                Color(0xFFFFC107).toArgb(), // Amber for Resting
+                Color(0xFF2196F3).toArgb(), // Blue for Light Activity
+                Color(0xFFF44336).toArgb()  // Red for High Activity
+            )
+            valueTextSize = 10f
+        }
+
+        val barData = BarData(barDataSet)
+
+        AndroidView(
+            modifier = Modifier
+                .fillMaxWidth(0.95f)
+                .padding(15.dp)
+                .height(200.dp),
+            factory = { context ->
+                BarChart(context).apply {
+                    data = barData
+                    description.isEnabled = false
+                    axisRight.isEnabled = false
+                    axisLeft.textColor = android.graphics.Color.BLACK
+
+                    xAxis.apply {
+                        position = XAxis.XAxisPosition.BOTTOM
+                        granularity = 1f
+                        setDrawGridLines(false)
+                        textColor = android.graphics.Color.BLACK
+                        valueFormatter = IndexAxisValueFormatter(categories)
+                    }
+                    legend.isEnabled = false
+                    animateY(1000)
+                }
+            },
+            update = { chart ->
+                chart.data = barData
+                chart.invalidate()
+            }
+        )
+    }
+}
+
+
+class IntValueFormatter : ValueFormatter() {
+    override fun getPointLabel(entry: Entry?): String {
+        return entry?.y?.toInt().toString()
+    }
+
+    override fun getFormattedValue(value: Float): String {
+        return value.toInt().toString()
+    }
+}
 
 @Composable
-fun InfluxDataScreen(viewModel: InfluxViewModel = viewModel()) {
-    val sensorData by viewModel.sensorData.collectAsState()
-//    val emotion by viewModel.emotion.collectAsState()
+fun ExportReportButton(viewModel: InfluxViewModel) {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+        val readings = viewModel.sensorData.value
+        saveReportPdf(context, readings)
+        Toast.makeText(context, "PDF saved in Downloads", Toast.LENGTH_SHORT).show()
+    },
+        colors = ButtonDefaults.buttonColors(Color(0xFF090909)),
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .fillMaxWidth(0.5f)
+            .border( width = 1.dp, color = Color.Black, shape = RoundedCornerShape(16.dp) )
+            .height(42.dp)
+    ) {
+        Text("Download report",
+            fontFamily = headlineFont2,
+            color = Color.White,
+            fontSize = 14.sp,
+            letterSpacing = 0.02.em)
+    }
+}
 
-    if (sensorData.isEmpty()) {
-        Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp)
-        ) {
-            Text("Loading sensor data...", modifier = Modifier.padding(16.dp))
+fun saveReportPdf(context: Context, readings: List<SensorReading>) {
+    try {
+        if (readings.isEmpty()) {
+            Toast.makeText(context, "No readings to export!", Toast.LENGTH_LONG).show()
+            return
         }
 
-    } else {
+        // Downloads folder
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        if (!downloadsDir.exists()) downloadsDir.mkdirs()
 
-        LazyColumn(modifier = Modifier.padding(16.dp)) {
-            item {
-                Text("Live Sensor Data")
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            items(sensorData) { reading ->
-                Card(modifier = Modifier.padding(vertical = 4.dp)) {
-                    Column(modifier = Modifier.padding(8.dp)) {
-                        Text("Time: ${reading.time}")
-                        Text("Heart Rate: ${reading.heartRate ?: 0.0}")
-                        Text("Temperature: ${reading.temp ?: 0.0}")
-                        Text("Acc X: ${reading.accX ?: 0.0}")
-                        Text("Acc Y: ${reading.accY ?: 0.0}")
-                        Text("Acc Z: ${reading.accZ ?: 0.0}")
-                    }
-                }
-            }
+        val file = File(downloadsDir, "sensorReport.pdf")
+        val document = Document()
+        PdfWriter.getInstance(document, FileOutputStream(file))
+        document.open()
+
+        // Title
+        document.add(Paragraph("Smart Band Weekly Report\n\n"))
+
+        // Table with 9 columns for your data
+        val table = PdfPTable(9)
+        table.addCell("Time")
+        table.addCell("Heart Rate")
+        table.addCell("Temp")
+        table.addCell("AccX")
+        table.addCell("AccY")
+        table.addCell("AccZ")
+        table.addCell("Emotion")
+        table.addCell("Magnitude")
+        table.addCell("Status")
+
+        readings.forEach { r ->
+            table.addCell(r.time)
+            table.addCell(r.heartRate?.toInt().toString()) // as int
+            table.addCell(r.temp?.toInt().toString())      // as int
+            table.addCell(r.accX.toString())
+            table.addCell(r.accY.toString())
+            table.addCell(r.accZ.toString())
+            table.addCell(r.emotion)
+            table.addCell(r.magnitude.toString())
+            table.addCell(r.status)
         }
 
+        document.add(table)
+        document.close()
 
+        Toast.makeText(context, "PDF saved to Downloads!", Toast.LENGTH_LONG).show()
+
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Toast.makeText(context, "Failed to save PDF: ${e.message}", Toast.LENGTH_LONG).show()
     }
 }

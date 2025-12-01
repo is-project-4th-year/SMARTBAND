@@ -112,6 +112,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
+    implementation("com.itextpdf:itextpdf:5.5.13.3")
+
 
 //    implementation("io.github.bytebeats:compose-charts:0.3.4")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
